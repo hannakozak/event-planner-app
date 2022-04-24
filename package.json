@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && npm start\" "
+  },
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  }
+}
