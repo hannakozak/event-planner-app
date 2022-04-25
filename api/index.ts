@@ -1,16 +1,19 @@
 import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import dotenv from 'dotenv/config';
+import { connectDatabase } from './database/connectDatabase';
+import morgan from "morgan";
 
 const app: Express = express();
+app.use(morgan("dev"));
 const port = process.env.PORT;
 
-app.get('/api', (req: Request, res: Response) => {
+connectDatabase()
+
+app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
 
-app.use(express.static('../client/public'))
+app.use(express.static('./public'))
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);

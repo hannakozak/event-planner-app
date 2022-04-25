@@ -4,5 +4,15 @@
       "source": "/api/(.*)",
       "destination": "/api"
     }
+  ],
+  "builds": [
+    {
+      "src": "./api/server.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "./clieny/build",
+      "use": "@vercel/static"
+    }
   ]
 }
