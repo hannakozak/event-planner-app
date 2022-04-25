@@ -1,7 +1,9 @@
 import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv/config';
+import dotenv from 'dotenv';
 import { connectDatabase } from './database/connectDatabase';
 import morgan from "morgan";
+
+dotenv.config();
 
 const app: Express = express();
 app.use(morgan("dev"));
