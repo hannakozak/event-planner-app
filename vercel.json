@@ -11,7 +11,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "./clieny/build",
+      "src": "./client/build",
       "use": "@vercel/static"
     }
   ]
