@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { HttpError } from '../models/httpError';
 import { User } from '../models/userModel';
+import bcrypt from "bcryptjs/dist/bcrypt.js";
 
 const getUsers = async (req, res, next) => {
     let users;
@@ -29,11 +30,12 @@ const signup = async (req, res, next) => {
         return next(error)
     }
 
+    let hashedPassword = await bcrypt.hash(password, 12)
+
     const createdUser = new User({
         name,
         email,
-        password,
-        repeatPassword,
+        password: hashedPassword,
         avatar: req.file.path,
     })
 
@@ -59,11 +61,18 @@ const login = async (req, res, next) => {
         return next(error)
     }
 
-    if (!existingUser || existingUser.password !== password) {
-        const error = new HttpError('Invalid credentials, Could not log you in', 401)
+    if (!existingUser) {
+        const error = new HttpError('Invalid credentials. Could not log you in', 401)
         next(error)
     }
-    res.json({ message: 'Log in!' })
+
+    let isValidPassword = await bcrypt.compare(password, existingUser.password)
+
+    if (!isValidPassword) {
+        const error = new HttpError('Invalid credentials. Could not log you in.', 401)
+        next(error)
+    }
+    res.json({ message: 'Log in!', user: existingUser.toObject({ getters: true }) })
 }
 
 export const authController = {
