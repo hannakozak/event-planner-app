@@ -1,6 +1,17 @@
 import { v4 as uuid } from 'uuid';
-import { HttpError } from '../models/httpError'
-import { User } from '../models/userModel'
+import { HttpError } from '../models/httpError';
+import { User } from '../models/userModel';
+
+const getUsers = async (req, res, next) => {
+    let users;
+    try {
+        users = await User.find({}, '-password')
+    } catch (err) {
+        const error = new HttpError('Fetching users faill, please try again later.', 500)
+        return next(error)
+    }
+    res.json({ users: users.map(user => user.toObject({ getters: true })) })
+}
 
 const signup = async (req, res, next) => {
     const { name, email, password, repeatPassword } = req.body
@@ -23,6 +34,7 @@ const signup = async (req, res, next) => {
         email,
         password,
         repeatPassword,
+        avatar: req.file.path,
     })
 
     try {
@@ -55,6 +67,7 @@ const login = async (req, res, next) => {
 }
 
 export const authController = {
+    getUsers,
     signup,
     login,
 };
