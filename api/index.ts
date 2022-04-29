@@ -4,23 +4,20 @@ import { connectDatabase } from './database/connectDatabase';
 import morgan from "morgan";
 import * as fs from 'fs';
 import * as path from 'path';
+import cookieParser from 'cookie-parser';
 import { authRoutes } from './routes/authRoutes'
 
 dotenv.config();
-
-const app: Express = express();
-
-app.use('uploads/images', express.static(path.join('uploads', 'images')))
-app.use(morgan("dev"));
-const port = process.env.PORT;
-
 connectDatabase()
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+const port = process.env.PORT;
+const app: Express = express();
 
+app.use(morgan("dev"));
 app.use(express.json())
+app.use(cookieParser())
+app.use('uploads/images', express.static(path.join('uploads', 'images')))
+app.use('../client/public', express.static('public'))
 
 app.use('/api/users', authRoutes)
 
