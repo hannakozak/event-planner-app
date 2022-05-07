@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
 import { authRoutes } from './routes/authRoutes'
+import { userRoutes } from './user/user-routes';
 
 dotenv.config();
 connectDatabase()
@@ -19,7 +20,7 @@ app.use(cookieParser())
 app.use('uploads/images', express.static(path.join('uploads', 'images')))
 app.use('../client/public', express.static('public'))
 
-app.use('/api/users', authRoutes)
+app.use('/api/users', userRoutes)
 
 app.use((error, req: Request, res: Response, next) => {
   if (req.file) {
