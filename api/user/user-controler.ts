@@ -1,15 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { HttpError } from '../models/httpError';
 import { UserType } from './user-types';
 import { userService } from './user-service';
+import { userValidation } from './user-validation';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     let users: UserType[];
     try {
         users = await userService.getAllUsers()
     } catch (err) {
-        const error = new HttpError('Fetching users faild, please try again later.', 500)
-        return next(error)
+        return next(err)
     }
     res.status(200)
     res.json({ users: users })
@@ -18,12 +17,20 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
 const register = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body
 
+    const { error } = userValidation.register(req.body);
+    let errorObject = {}
+    if (error) {
+        for (let item of error.details) {
+            errorObject[item.path[0]] = item.message;
+        }
+        return res.status(400).json({ message: errorObject });
+    }
+
     let createdUserId;
     try {
         createdUserId = await userService.register(name, email, password)
     } catch (err) {
-        const error = new HttpError('Signing up failed, please try again later', 500)
-        return next(error)
+        return next(err)
     }
 
     res.status(201)
@@ -33,12 +40,20 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body
 
+    const { error } = userValidation.login(req.body);
+    let errorObject = {}
+    if (error) {
+        for (let item of error.details) {
+            errorObject[item.path[0]] = item.message;
+        }
+        return res.status(400).json({ message: errorObject });
+    }
+
     let token: string
     try {
         token = await userService.login(email, password)
     } catch (err) {
-        const error = new HttpError('Loggin in failed. Please try again later', 500)
-        return next(error)
+        return next(err)
     }
 
     res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
@@ -52,14 +67,13 @@ const logout = (req: Request, res: Response) => {
     res.json({ message: 'Log out' })
 }
 
-const authUser = async (req, res, next) => {
+const authUser = async (req, res: Response, next: NextFunction) => {
     const userId = req.user.userId;
     let authUser;
     try {
         authUser = await userService.authUser(userId)
     } catch (err) {
-        const error = new HttpError('Could not find user', 404)
-        return next(error)
+        return next(err)
     }
     res.status(200)
     res.json({ message: authUser })

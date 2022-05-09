@@ -31,7 +31,7 @@ const register = async (name: string, email: string, password: string) => {
     try {
         createdUserId = await userRepository.register(name, email, password)
     } catch (err) {
-        throw new HttpError('Signing up faild, please log in instead.', 422)
+        throw new HttpError('Signing up faild. Please, try again later.', 500)
     }
 
     return createdUserId

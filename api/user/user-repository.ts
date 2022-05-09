@@ -1,5 +1,5 @@
 import { User } from './user-model'
-import { UserType, UserId } from './user-types';
+import { UserType } from './user-types';
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 
 const getAllUsers = async () => {

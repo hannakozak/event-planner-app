@@ -5,7 +5,6 @@ import morgan from "morgan";
 import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
-import { authRoutes } from './routes/authRoutes'
 import { userRoutes } from './user/user-routes';
 
 dotenv.config();

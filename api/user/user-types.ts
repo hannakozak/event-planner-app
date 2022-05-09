@@ -4,7 +4,3 @@ export type UserType = {
     email: string,
     password: string
 }
-
-export type UserId = {
-    _id: number
-}
