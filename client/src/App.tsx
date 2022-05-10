@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
+import { Home } from './views/Home/Home';
 
 const App = () => {
   return (
     <div>
-      <h1>Event Planner App</h1>
+      <Home />
     </div>
   );
 };

@@ -15,7 +15,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   body {
     line-height: 1.5;
     font-size: 62.5%;
-    background:  ${({ theme }) => theme.colors.primary2};
   }
   p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;

@@ -17,7 +17,6 @@ app.use(morgan("dev"));
 app.use(express.json())
 app.use(cookieParser())
 app.use('uploads/images', express.static(path.join('uploads', 'images')))
-app.use('../client/public', express.static('public'))
 
 app.use('/api/users', userRoutes)
 
@@ -31,6 +30,8 @@ app.use((error, req: Request, res: Response, next) => {
   res.status(error.code || 500)
   res.json({ message: error.message || 'Unknown error occured!' })
 })
+
+app.use(express.static('../client/public'))
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
