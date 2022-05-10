@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename={window.location.pathname || ''}>
     <ThemeProvider theme={theme}>
       <GlobalStyle theme={theme} />
       <React.StrictMode>

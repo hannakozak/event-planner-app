@@ -31,8 +31,9 @@ app.use((error, req: Request, res: Response, next) => {
   res.json({ message: error.message || 'Unknown error occured!' })
 })
 
-app.use(express.static('../client/public'))
+app.use('../client.public', express.static('public'))
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 });
+
