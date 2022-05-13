@@ -33,12 +33,10 @@ app.use((error, req: Request, res: Response, next) => {
   res.json({ message: error.message || 'Unknown error occured!' })
 })
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client', 'build')));
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
-  })
-}
+app.use(express.static(path.join(__dirname, '../client', 'build')));
+app.use('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+})
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
