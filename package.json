@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && npm start\" "
+    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && yarn start\" "
   },
   "dependencies": {
     "concurrently": "^7.1.0"

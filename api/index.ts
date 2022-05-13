@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
 import { userRoutes } from './user/user-routes';
+import cors from "cors";
 
 dotenv.config();
 connectDatabase()
@@ -14,6 +15,7 @@ const port = process.env.PORT;
 const app: Express = express();
 
 app.use(morgan("dev"));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json())
 app.use(cookieParser())
 app.use('uploads/images', express.static(path.join('uploads', 'images')))
