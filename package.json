@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && yarn start\" "
+    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && npm start\" ",
+    "vercel-build": "cd client && npm run build && move build dist "
   },
   "dependencies": {
     "concurrently": "^7.1.0"
-  }
+  },
+  "proxy": "http://localhost:8000/"
 }
