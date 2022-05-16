@@ -1,7 +1,8 @@
 {
+  "version": "2",
   "scripts": {
     "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && npm start\" ",
-    "vercel-build": "cd client && npm install && npm run build && move build dist "
+    "vercel-build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "concurrently": "^7.1.0"
