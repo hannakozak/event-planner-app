@@ -15,8 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "typeRoots": ["./node_modules/@types", "./typings"]
   },
-  "include": ["src"],
+  "include": ["src", "src/typings"],
   "types": ["node", "jest", "@testing-library/jest-dom"]
 }
