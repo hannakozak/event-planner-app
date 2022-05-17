@@ -10,9 +10,7 @@ export const Home = () => {
         <h1>Manage Your plans easily </h1>
         <h2> with</h2>
         <h2>Event Planner App </h2>
-        <Button type="button" variant="primary">
-          Log in
-        </Button>
+        <Button variant="primary">Log in</Button>
         <p> Do not have an account yet? Please sign up</p>
       </HomeText>
     </HomeWrapper>

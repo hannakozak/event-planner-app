@@ -10,12 +10,12 @@ export const ButtonStyled = styled.button`
     variant === 'primary' &&
     css`
       background-color: ${({ theme }) => theme.colors.primary3};
-      color: ${({ theme }) => theme.colors.white};
       border: 2px solid ${({ theme }) => theme.colors.primary3};
+      color: ${({ theme }) => theme.colors.white};
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.primary5};
-        border: 1px solid ${({ theme }) => theme.colors.primary5};
+        border: 2px solid ${({ theme }) => theme.colors.primary5};
       }
       &:focus,
       &:active {
@@ -28,14 +28,17 @@ export const ButtonStyled = styled.button`
     variant === 'secondary' &&
     css`
       background-color: ${({ theme }) => theme.colors.white};
-      color: ${({ theme }) => theme.colors.primary3};
       border: 2px solid ${({ theme }) => theme.colors.primary3};
+      color: ${({ theme }) => theme.colors.primary3};
 
-      &:hover,
+      &:hover {
+        color: ${({ theme }) => theme.colors.primary5};
+        border: 2px solid ${({ theme }) => theme.colors.primary5};
+      }
       &:focus,
       &:active {
-        color: ${({ theme }) => theme.colors.primary5};
-        border: 1px solid ${({ theme }) => theme.colors.primary5};
+        color: ${({ theme }) => theme.colors.primary4};
+        border: 1px solid ${({ theme }) => theme.colors.primary4};
       }
     `}
   
