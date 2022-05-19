@@ -1,3 +1,3 @@
 export * from './colors';
-export * from './text';
+export * from './fontSize';
 export * from './device';

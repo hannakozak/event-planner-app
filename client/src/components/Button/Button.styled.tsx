@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const ButtonStyled = styled.button`
   font-size: ${(props) => (props.fontSize ? props.fontSize : '2rem')};
-  font-weight: ${({ theme }) => theme.text.regular};
+  font-weight: bold;
   padding: 0.5rem 2rem;
   margin: 2rem;
 

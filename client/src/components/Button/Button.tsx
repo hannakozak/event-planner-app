@@ -19,6 +19,7 @@ export const Button = ({
   isDisabled,
   color,
   fontSize,
+  ...props
 }: ButtonProps) => {
   return (
     <ButtonStyled
@@ -28,6 +29,7 @@ export const Button = ({
       disabled={isDisabled}
       color={color}
       fontSize={fontSize}
+      {...props}
     >
       {children}
     </ButtonStyled>

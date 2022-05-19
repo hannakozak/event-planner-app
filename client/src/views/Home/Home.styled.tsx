@@ -37,28 +37,5 @@ export const HomeImage = styled.img`
 export const HomeText = styled.div`
   margin: 2rem;
   letter-spacing: 1px;
-  line-height: 1.6;
-
-  & h1,
-  h2 {
-    color: ${({ theme }) => theme.colors.primary3};
-    font-size: 2rem;
-  }
-
-  @media ${({ theme }) => theme.device.tablet} {
-    & h1,
-    h2 {
-      color: ${({ theme }) => theme.colors.primary3};
-      font-size: 2.5rem;
-    }
-  }
-  @media ${({ theme }) => theme.device.tablet} {
-    & h1,
-    h2 {
-      color: ${({ theme }) => theme.colors.primary3};
-      font-size: 3rem;
-    }
-  }
+  line-height: 2;
 `;
-
-export const HomeTitle = styled.h1``;
