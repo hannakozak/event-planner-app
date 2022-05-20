@@ -9,8 +9,8 @@ export type FontSize = {
 export const fontSize: FontSize = {
     xxs: '1.5rem',
     xs: '1.8rem',
-    sm: '2px',
-    md: '2.4px',
-    lg: '2.8rem',
-    xl: '3.2rem'
+    sm: '2rem',
+    md: '2.4rem',
+    lg: '2.6rem',
+    xl: '2.8rem'
 }

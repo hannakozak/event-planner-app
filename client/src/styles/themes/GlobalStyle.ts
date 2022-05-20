@@ -24,4 +24,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   input, button, textarea, select {
     font: inherit;
   }
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+}
 `;

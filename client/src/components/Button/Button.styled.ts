@@ -4,7 +4,8 @@ export const ButtonStyled = styled.button`
   font-size: ${(props) => (props.fontSize ? props.fontSize : '2rem')};
   font-weight: bold;
   padding: 0.5rem 2rem;
-  margin: 2rem;
+  margin: 2rem 0rem;
+  border-radius: 4px;
 
   ${({ variant }) =>
     variant === 'primary' &&

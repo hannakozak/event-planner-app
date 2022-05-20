@@ -6,6 +6,7 @@ export type HeadingProps = {
   level?: 1 | 2 | 3 | 4 | 5 | 6 | 'inherit';
   color?: string;
 };
+
 export const TextStyled = styled.p`
   color: ${(props) => (props.color ? props.color : '#2F2E41')};
   font-size: ${({ theme }) => theme.fontSize.xs}};
@@ -14,7 +15,7 @@ export const TextStyled = styled.p`
   margin: 0 0 2.4rem;
 `;
 
-export const LinkStyled = styled.a`
+export const LinkStyled = styled.span`
   color: ${(props) => (props.color ? props.color : '#00ADB5')};
   font-size: ${({ theme }) => theme.fontSize.xs}};
   font-weight: 700;
@@ -25,7 +26,7 @@ export const LinkStyled = styled.a`
 export const HeadingStyled = styled('div').attrs<HeadingProps>(({ level }) => ({
   role: 'heading',
   'aria-level': level || 1,
-}))<HeadingProps>`
+})) <HeadingProps>`
   color: ${(props) => props.color};
   ${({ level }) =>
     level === 1 &&

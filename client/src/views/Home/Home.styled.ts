@@ -7,14 +7,12 @@ export const HomeWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-
   @media ${({ theme }) => theme.device.tablet} {
     height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
     font-size: 2rem;
     text-align: center;
     border-radius: 15px;
