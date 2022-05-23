@@ -9,7 +9,7 @@ userRoutes.get('/', userControler.getAllUsers)
 
 userRoutes.get('/authUser', checkAuth, userControler.authUser)
 
-userRoutes.post('/register', userControler.register)
+userRoutes.post('/register', fileUpload.single('image'), userControler.register)
 
 userRoutes.post('/login', userControler.login)
 

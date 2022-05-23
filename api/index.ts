@@ -14,26 +14,39 @@ connectDatabase()
 const port = process.env.PORT;
 const app: Express = express();
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+
+  next();
+});
+
 app.use(morgan("dev"));
-app.use(cors({ origin: true, credentials: true }));
 app.use(express.json())
 app.use(cookieParser())
 app.use('uploads/images', express.static(path.join('uploads', 'images')))
 
 app.use('/api/users', userRoutes)
 
-app.use((error, req: Request, res: Response, next) => {
+
+app.use((error, req, res, next) => {
   if (req.file) {
-    fs.unlink(req.file.path, err => console.log(err))
+    fs.unlink(req.file.path, err => {
+      console.log(err);
+    });
   }
-  if (res.headersSent) {
-    return next(error)
+  if (res.headerSent) {
+    return next(error);
   }
-  res.status(error.code || 500)
-  res.json({ message: error.message || 'Unknown error occured!' })
-})
+  res.status(error.code || 500);
+  res.json({ message: error.message || 'An unknown error occurred!' });
+});
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
 

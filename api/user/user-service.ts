@@ -15,7 +15,7 @@ const getAllUsers = async () => {
     return users
 }
 
-const register = async (name: string, email: string, password: string) => {
+const register = async (name: string, email: string, password: string, image) => {
     let existingUser: UserType
     try {
         existingUser = await userRepository.findUserByEmail(email)
@@ -29,7 +29,7 @@ const register = async (name: string, email: string, password: string) => {
 
     let createdUserId
     try {
-        createdUserId = await userRepository.register(name, email, password)
+        createdUserId = await userRepository.register(name, email, password, image)
     } catch (err) {
         throw new HttpError('Signing up faild. Please, try again later.', 500)
     }
@@ -49,7 +49,7 @@ const login = async (email: string, password: string) => {
         throw new HttpError('Invalid credentials. Could not log you in', 401)
     }
 
-    let isValidPassword = await bcrypt.compare(password, existingUser.password)
+    const isValidPassword = await bcrypt.compare(password, existingUser.password)
 
     if (!isValidPassword) {
         throw new HttpError('Invalid credentials. Could not log you in', 401)
@@ -66,9 +66,9 @@ const login = async (email: string, password: string) => {
 }
 
 const authUser = async (userId) => {
-    let authUser;
+    let loginUser;
     try {
-        authUser = await userRepository.findUserById(userId)
+        loginUser = await userRepository.findUserById(userId)
     } catch (err) {
         throw new HttpError('Could not find user', 404)
     }

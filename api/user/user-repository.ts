@@ -8,7 +8,7 @@ const getAllUsers = async () => {
 }
 
 const findUserByEmail = async (email: string) => {
-    const existingUser: UserType = await User.findOne({ email: email })
+    const existingUser: UserType = await User.findOne({ email })
     if (!existingUser) {
         return
     }
@@ -20,13 +20,14 @@ const findUserById = async (userId: number) => {
     return authUser
 }
 
-const register = async (name: string, email: string, password: string) => {
-    let hashedPassword = await bcrypt.hash(password, 12)
+const register = async (name: string, email: string, password: string, image) => {
+    const hashedPassword = await bcrypt.hash(password, 12)
 
     const createdUser = new User({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        image,
     })
 
     await createdUser.save()

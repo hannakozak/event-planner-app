@@ -11,16 +11,17 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
         return next(err)
     }
     res.status(200)
-    res.json({ users: users })
+    res.json({ users })
 }
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body
+    const image = req.file.path
 
     const { error } = userValidation.register(req.body);
-    let errorObject = {}
+    const errorObject = {}
     if (error) {
-        for (let item of error.details) {
+        for (const item of error.details) {
             errorObject[item.path[0]] = item.message;
         }
         return res.status(400).json({ message: errorObject });
@@ -28,7 +29,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
     let createdUserId;
     try {
-        createdUserId = await userService.register(name, email, password)
+        createdUserId = await userService.register(name, email, password, image)
     } catch (err) {
         return next(err)
     }
@@ -41,9 +42,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body
 
     const { error } = userValidation.login(req.body);
-    let errorObject = {}
+    const errorObject = {}
     if (error) {
-        for (let item of error.details) {
+        for (const item of error.details) {
             errorObject[item.path[0]] = item.message;
         }
         return res.status(400).json({ message: errorObject });
@@ -69,14 +70,14 @@ const logout = (req: Request, res: Response) => {
 
 const authUser = async (req, res: Response, next: NextFunction) => {
     const userId = req.user.userId;
-    let authUser;
+    let loginUser;
     try {
-        authUser = await userService.authUser(userId)
+        loginUser = await userService.authUser(userId)
     } catch (err) {
         return next(err)
     }
     res.status(200)
-    res.json({ message: authUser })
+    res.json({ message: loginUser })
 }
 
 export const userControler = {
