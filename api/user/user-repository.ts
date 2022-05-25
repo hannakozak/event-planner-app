@@ -27,7 +27,7 @@ const register = async (name: string, email: string, password: string, image) =>
         name,
         email,
         password: hashedPassword,
-        image,
+        image
     })
 
     await createdUser.save()

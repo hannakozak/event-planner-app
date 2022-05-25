@@ -19,13 +19,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const image = req.file.path
 
     const { error } = userValidation.register(req.body);
-    const errorObject = {}
-    if (error) {
-        for (const item of error.details) {
-            errorObject[item.path[0]] = item.message;
-        }
-        return res.status(400).json({ message: errorObject });
-    }
 
     let createdUserId;
     try {

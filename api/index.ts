@@ -34,6 +34,7 @@ app.use('/api/users', userRoutes)
 
 
 app.use((error, req, res, next) => {
+  res.locals.error = error;
   if (req.file) {
     fs.unlink(req.file.path, err => {
       console.log(err);
@@ -42,7 +43,8 @@ app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
   }
-  res.status(error.code || 500);
+  const status = error.status || 500;
+  res.status(status);
   res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
