@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
-import { FormStyled } from './SignupForm.styled';
+import { FormStyled, LabelStyled } from './SignupForm.styled';
+import { ImageUploader } from '../ImageUploader/ImageUploader';
 
 export const SignupForm = () => {
   const {
@@ -14,11 +15,12 @@ export const SignupForm = () => {
   const onSubmit = async (data) => {
     const location = window.location.hostname;
     const formData = new FormData();
+    console.log(data);
 
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
-    formData.append('image', data.image[0]);
+    formData.append('image', data.file[0]);
 
     const settings = {
       method: 'POST',
@@ -26,7 +28,7 @@ export const SignupForm = () => {
     };
     try {
       const response = await fetch(
-        `https://${location}:8000/api/users/register`,
+        `http://${location}:8000/api/users/register`,
         settings,
       );
       const responseData = await JSON.stringify(response);
@@ -64,7 +66,14 @@ export const SignupForm = () => {
         type="password"
         label="repeat password:"
       />
-      <input type="file" {...register('image')} name="image" />
+      <LabelStyled>
+        <FormInput
+          register={register('file')}
+          name="image"
+          type="file"
+          label="Pick an avatar"
+        />
+      </LabelStyled>
 
       <Button type="submit" variant="primary">
         SUBMIT
