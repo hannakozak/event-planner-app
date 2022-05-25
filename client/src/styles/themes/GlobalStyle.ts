@@ -29,4 +29,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     cursor: pointer;
     text-decoration: none;
 }
+
+input[type="file" i] {
+     display: none;
+}
+
 `;
