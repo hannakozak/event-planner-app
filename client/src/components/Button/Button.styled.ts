@@ -10,18 +10,18 @@ export const ButtonStyled = styled.button`
   ${({ variant }) =>
     variant === 'primary' &&
     css`
-      background-color: ${({ theme }) => theme.colors.primary3};
-      border: 2px solid ${({ theme }) => theme.colors.primary3};
+      background-color: ${({ theme }) => theme.colors.bondiBlue};
+      border: 2px solid ${({ theme }) => theme.colors.bondiBlue};
       color: ${({ theme }) => theme.colors.white};
 
       &:hover {
-        background-color: ${({ theme }) => theme.colors.primary5};
-        border: 2px solid ${({ theme }) => theme.colors.primary5};
+        background-color: ${({ theme }) => theme.colors.blueStone};
+        border: 2px solid ${({ theme }) => theme.colors.blueStone};
       }
       &:focus,
       &:active {
-        background-color: ${({ theme }) => theme.colors.primary4};
-        border: 1px solid ${({ theme }) => theme.colors.primary4};
+        background-color: ${({ theme }) => theme.colors.teal};
+        border: 1px solid ${({ theme }) => theme.colors.teal};
       }
     `}
 
@@ -29,17 +29,17 @@ export const ButtonStyled = styled.button`
     variant === 'secondary' &&
     css`
       background-color: ${({ theme }) => theme.colors.white};
-      border: 2px solid ${({ theme }) => theme.colors.primary3};
-      color: ${({ theme }) => theme.colors.primary3};
+      border: 2px solid ${({ theme }) => theme.colors.bondiBlue};
+      color: ${({ theme }) => theme.colors.bondiBlue};
 
       &:hover {
-        color: ${({ theme }) => theme.colors.primary5};
-        border: 2px solid ${({ theme }) => theme.colors.primary5};
+        color: ${({ theme }) => theme.colors.blueStone};
+        border: 2px solid ${({ theme }) => theme.colors.blueStone};
       }
       &:focus,
       &:active {
-        color: ${({ theme }) => theme.colors.primary4};
-        border: 1px solid ${({ theme }) => theme.colors.primary4};
+        color: ${({ theme }) => theme.colors.teal};
+        border: 1px solid ${({ theme }) => theme.colors.teal};
       }
     `}
   
@@ -47,13 +47,13 @@ export const ButtonStyled = styled.button`
     variant === 'caution' &&
     css`
       background-color: ${({ theme }) => theme.colors.white};
-      color: ${({ theme }) => theme.colors.caution};
-      border: 2px solid ${({ theme }) => theme.colors.caution};
+      color: ${({ theme }) => theme.colors.persianRed};
+      border: 2px solid ${({ theme }) => theme.colors.persianRed};
 
       &:hover,
       &:focus,
       &:active {
-        background-color: ${({ theme }) => theme.colors.caution};
+        background-color: ${({ theme }) => theme.colors.persianRed};
         color: ${({ theme }) => theme.colors.white};
       }
     `}

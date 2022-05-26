@@ -28,7 +28,7 @@ export const SignupForm = () => {
     };
     try {
       const response = await fetch(
-        `http://${location}:8000/api/users/register`,
+        `https://${location}:8000/api/users/register`,
         settings,
       );
       const responseData = await JSON.stringify(response);
