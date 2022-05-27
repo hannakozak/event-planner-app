@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
 import { FormStyled } from './LoginForm.styled';
-
+import { useFetch } from '../../hooks/useFetch';
 export const LoginForm = () => {
+  const { sendRequest } = useFetch();
   const {
     register,
     handleSubmit,
@@ -12,24 +13,14 @@ export const LoginForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const location = window.location.hostname;
-
-    const settings = {
-      method: 'POST',
-      body: data,
-    };
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/users/login`,
-        settings,
-      );
-      const responseData = await JSON.stringify(response);
-
-      return responseData;
-    } catch (err) {
-      // Do something for an error here
-      console.log(err);
-    }
+    const responseData = await sendRequest(
+      'http://localhost:8000/api/users/login',
+      'POST',
+      JSON.stringify(data),
+      {
+        'Content-Type': 'application/json',
+      },
+    );
   };
 
   return (

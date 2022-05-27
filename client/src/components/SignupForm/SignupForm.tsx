@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
 import { FormStyled, LabelStyled } from './SignupForm.styled';
-import { ImageUploader } from '../ImageUploader/ImageUploader';
+import { useFetch } from '../../hooks/useFetch';
 
 export const SignupForm = () => {
+  const { sendRequest } = useFetch();
   const {
     register,
     handleSubmit,
@@ -13,31 +14,20 @@ export const SignupForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const location = window.location.hostname;
     const formData = new FormData();
-    console.log(data);
 
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
     formData.append('image', data.file[0]);
 
-    const settings = {
-      method: 'POST',
-      body: formData,
-    };
-    try {
-      const response = await fetch(
-        `https://${location}:8000/api/users/register`,
-        settings,
-      );
-      const responseData = await JSON.stringify(response);
+    const responseData = await sendRequest(
+      'http://localhost:8000/api/users/register',
+      'POST',
+      formData,
+    );
 
-      return responseData;
-    } catch (err) {
-      // Do something for an error here
-      console.log(err);
-    }
+    return responseData;
   };
 
   return (
