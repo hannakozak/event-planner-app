@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserType } from './user-types';
 import { userService } from './user-service';
-import { userValidation } from './user-validation';
+import { userRepository } from './user-repository';
+import { HttpError } from '../models/httpError';
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     let users: UserType[];
@@ -18,7 +19,9 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body
     const image = req.file.path
 
-    const { error } = userValidation.register(req.body);
+    const existingUser = await userRepository.findUserByEmail(email)
+    if (existingUser)
+        throw new HttpError('Email already exists', 500)
 
     let createdUserId;
     try {
@@ -33,15 +36,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body
-
-    const { error } = userValidation.login(req.body);
-    const errorObject = {}
-    if (error) {
-        for (const item of error.details) {
-            errorObject[item.path[0]] = item.message;
-        }
-        return res.status(400).json({ message: errorObject });
-    }
 
     let token: string
     try {

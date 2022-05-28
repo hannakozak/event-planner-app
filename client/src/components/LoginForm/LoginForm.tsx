@@ -5,7 +5,7 @@ import { FormInput } from '../FormInput/FormInput';
 import { FormStyled } from './LoginForm.styled';
 import { useFetch } from '../../hooks/useFetch';
 export const LoginForm = () => {
-  const { sendRequest } = useFetch();
+  const { sendRequest, error } = useFetch();
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   const onSubmit = async (data) => {
     const responseData = await sendRequest(
-      'http://localhost:8000/api/users/login',
+      '/api/users/login',
       'POST',
       JSON.stringify(data),
       {
@@ -22,7 +22,7 @@ export const LoginForm = () => {
       },
     );
   };
-
+  console.log(error);
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <FormInput
