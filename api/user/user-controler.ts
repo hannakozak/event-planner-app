@@ -17,15 +17,10 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body
-    const image = req.file.path
-
-    const existingUser = await userRepository.findUserByEmail(email)
-    if (existingUser)
-        throw new HttpError('Email already exists', 500)
 
     let createdUserId;
     try {
-        createdUserId = await userService.register(name, email, password, image)
+        createdUserId = await userService.register(name, email, password)
     } catch (err) {
         return next(err)
     }

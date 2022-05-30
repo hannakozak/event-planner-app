@@ -28,18 +28,13 @@ app.use((req, res, next) => {
 app.use(morgan("dev"));
 app.use(express.json())
 app.use(cookieParser())
-app.use('uploads/images', express.static(path.join('uploads', 'images')))
 
 app.use('/api/users', userRoutes)
 
 
 app.use((error, req, res, next) => {
   res.locals.error = error;
-  if (req.file) {
-    fs.unlink(req.file.path, err => {
-      console.log(err);
-    });
-  }
+
   if (res.headerSent) {
     return next(error);
   }

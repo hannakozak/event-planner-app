@@ -15,7 +15,7 @@ const getAllUsers = async () => {
     return users
 }
 
-const register = async (name: string, email: string, password: string, image) => {
+const register = async (name: string, email: string, password: string) => {
     let existingUser: UserType
     try {
         existingUser = await userRepository.findUserByEmail(email)
@@ -29,7 +29,7 @@ const register = async (name: string, email: string, password: string, image) =>
 
     let createdUserId
     try {
-        createdUserId = await userRepository.register(name, email, password, image)
+        createdUserId = await userRepository.register(name, email, password)
     } catch (err) {
         throw new HttpError('Signing up faild. Please, try again later.', 500)
     }

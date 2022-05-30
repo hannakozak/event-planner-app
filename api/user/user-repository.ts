@@ -20,14 +20,13 @@ const findUserById = async (userId: number) => {
     return authUser
 }
 
-const register = async (name: string, email: string, password: string, image) => {
+const register = async (name: string, email: string, password: string) => {
     const hashedPassword = await bcrypt.hash(password, 12)
 
     const createdUser = new User({
         name,
         email,
         password: hashedPassword,
-        image
     })
 
     await createdUser.save()
