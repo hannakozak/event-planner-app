@@ -23,7 +23,6 @@ export const LabelStyled = styled.label`
   font-weight: bold;
   width: 50%;
   padding: 0.5rem 2rem;
-  margin-top: 3rem;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.colors.white};
   border: 2px solid ${({ theme }) => theme.colors.bondiBlue};

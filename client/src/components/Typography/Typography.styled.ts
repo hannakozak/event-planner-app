@@ -9,7 +9,7 @@ export type HeadingProps = {
 
 export const TextStyled = styled.p`
   color: ${(props) => (props.color ? props.color : '#2F2E41')};
-  font-size: ${({ theme }) => theme.fontSize.xs}};
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 500;
   line-height: 3.2rem;
   margin: 0 0 2.4rem;
@@ -17,7 +17,7 @@ export const TextStyled = styled.p`
 
 export const LinkStyled = styled.span`
   color: ${(props) => (props.color ? props.color : '#00ADB5')};
-  font-size: ${({ theme }) => theme.fontSize.xs}};
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 700;
   line-height: 3.2rem;
   margin: 0 0 2.4rem;
@@ -31,7 +31,7 @@ export const HeadingStyled = styled('div').attrs<HeadingProps>(({ level }) => ({
   ${({ level }) =>
     level === 1 &&
     css` 
-    font-size: ${({ theme }) => theme.fontSize.xl}};
+    font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: 800; 
     line-height: 5rem;
     margin: 0 0 1rem; 
@@ -44,11 +44,11 @@ export const HeadingStyled = styled('div').attrs<HeadingProps>(({ level }) => ({
       font-size: ${({ theme }) => theme.fontSize.lg};
     `}
   ${({ level }) =>
-    level === 3 && css` font-size: ${({ theme }) => theme.fontSize.md}};`}
+    level === 3 && css` font-size: ${({ theme }) => theme.fontSize.md};`}
   ${({ level }) =>
-    level === 4 && css` font-size: ${({ theme }) => theme.fontSize.sm}};`}
+    level === 4 && css` font-size: ${({ theme }) => theme.fontSize.sm};`}
   ${({ level }) =>
-    level === 5 && css` font-size: ${({ theme }) => theme.fontSize.xs}};`}
+    level === 5 && css` font-size: ${({ theme }) => theme.fontSize.xs};`}
   ${({ level }) =>
-    level === 6 && css` font-size: ${({ theme }) => theme.fontSize.xxs}};`}
+    level === 6 && css` font-size: ${({ theme }) => theme.fontSize.xxs};`}
 `;

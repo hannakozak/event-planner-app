@@ -2,11 +2,11 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 
 export const useFetch = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [error, setError] = useState<Error | null>();
+    const [error, setError] = useState<Error | null | unknown>();
 
     const activeHttpRequest = useRef([] as any)
 
-    const sendRequest = useCallback(async (url: string, method: 'GET' | 'POST', body: any, headers?: any): Promise<void> => {
+    const sendRequest = useCallback(async (url: string, method: 'GET' | 'POST', body, headers): Promise<void> => {
         setIsLoading(true)
 
         const httpAbortController: AbortController = new AbortController()
@@ -29,10 +29,12 @@ export const useFetch = () => {
             }
             setIsLoading(false)
             return responseData
-        } catch (err: any) {
-            setError(err.message)
-            setIsLoading(false)
-            throw err
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message)
+                setIsLoading(false)
+                throw error
+            }
         }
     }, [])
 

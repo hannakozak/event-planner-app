@@ -16,5 +16,4 @@ export const LabelStyled = styled.label`
   font-size: ${({ theme }) => theme.fontSize.xxs};
   color: ${({ theme }) => theme.colors.bondiBlue};
   font-weight: 500;
-  margin: 1rem 0;
 `;
