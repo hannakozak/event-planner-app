@@ -7,9 +7,11 @@ import { useFetch } from '../../hooks/useFetch';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginSchema } from './LoginValidation';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
   const { sendRequest, error } = useFetch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,7 +21,9 @@ export const LoginForm = () => {
   const onSubmit = async (data) => {
     await sendRequest('/api/users/login', 'POST', JSON.stringify(data), {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     });
+    navigate('/dashboard');
   };
 
   return (
