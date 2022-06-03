@@ -72,7 +72,7 @@ const authUser = async (userId) => {
     } catch (err) {
         throw new HttpError('Could not find user', 404)
     }
-    return authUser
+    return loginUser
 }
 
 export const userService = {

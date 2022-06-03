@@ -59,7 +59,7 @@ const authUser = async (req, res: Response, next: NextFunction) => {
         return next(err)
     }
     res.status(200)
-    res.json({ message: loginUser })
+    res.json({ data: loginUser })
 }
 
 export const userControler = {
