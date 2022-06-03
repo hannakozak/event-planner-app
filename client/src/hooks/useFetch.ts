@@ -1,3 +1,4 @@
+
 import { useState, useCallback, useRef, useEffect } from 'react'
 
 export const useFetch = () => {
@@ -20,15 +21,16 @@ export const useFetch = () => {
                 signal: httpAbortController.signal
             })
 
-            const responseData = await response.json()
+            const responseData = await response.json();
 
-            activeHttpRequest.current = activeHttpRequest.current.filter(requestContoler => requestContoler !== httpAbortController)
+            activeHttpRequest.current = activeHttpRequest.current.filter(requestContoler => requestContoler !== httpAbortController);
 
             if (!response.ok) {
                 throw new Error(responseData.message)
             }
             setIsLoading(false)
             return responseData
+
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message)

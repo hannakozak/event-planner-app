@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useFetch } from '../hooks/useFetch';
+import React, { createContext, useContext } from 'react';
 
 type AuthContextType = {
   isAuthorized: () => boolean;
-  authUser: unknown;
 };
 
 type Props = {
@@ -13,29 +11,14 @@ type Props = {
 const AuthContext = createContext({} as AuthContextType);
 
 const AuthProvider = ({ children }: Props) => {
-  const [authUser, setAuthUser] = useState<unknown>();
-  const { sendRequest } = useFetch();
-
-  const getAuthUser = async () => {
-    const responseData = await sendRequest('/api/users/authUser', 'GET', null, {
-      credentials: 'include',
-    });
-    setAuthUser(responseData);
-  };
-
-  useEffect(() => {
-    getAuthUser();
-  }, [sendRequest]);
-
   const isAuthorized = () => {
-    return authUser !== undefined;
+    return document.cookie !== null;
   };
 
   return (
     <AuthContext.Provider
       value={{
         isAuthorized,
-        authUser,
       }}
     >
       {children}
