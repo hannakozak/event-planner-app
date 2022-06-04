@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
+import { Header } from '../../components/Header/Header';
+import { Footer } from '../../components/Footer/Footer';
 
 export const Dashboard = () => {
   const [authUser, setAuthUser] = useState<AuthUserType>();
@@ -31,5 +33,13 @@ export const Dashboard = () => {
     getUser();
   }, [sendRequest]);
 
-  return <>{authUser && <p>Welcome {authUser.name} </p>}</>;
+  return (
+    <>
+      <Header>
+        {authUser && <p>Welcome, {authUser.name}! </p>}
+        <div>log out</div>
+      </Header>
+      <Footer>Event Planner App</Footer>
+    </>
+  );
 };
