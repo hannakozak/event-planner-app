@@ -7,7 +7,6 @@ import { theme } from './styles/themes/theme';
 import { GlobalStyle } from './styles/themes/GlobalStyle';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/authContext';
-import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <BrowserRouter basename="/">
@@ -15,9 +14,7 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
         <GlobalStyle theme={theme} />
         <React.StrictMode>
-          <CookiesProvider>
-            <App />
-          </CookiesProvider>
+          <App />
         </React.StrictMode>
       </ThemeProvider>
     </AuthProvider>

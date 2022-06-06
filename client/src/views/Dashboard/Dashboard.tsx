@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
+import { EventCalendar } from '../../components/EventCalendar/EventCalendar';
 
 export const Dashboard = () => {
   const [authUser, setAuthUser] = useState<AuthUserType>();
@@ -39,6 +40,7 @@ export const Dashboard = () => {
         {authUser && <p>Welcome, {authUser.name}! </p>}
         <div>log out</div>
       </Header>
+      <EventCalendar />
       <Footer>Event Planner App</Footer>
     </>
   );
