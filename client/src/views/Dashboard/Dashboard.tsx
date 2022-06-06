@@ -3,6 +3,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { EventCalendar } from '../../components/EventCalendar/EventCalendar';
+import { EventForm } from '../../components/EventForm/EventForm';
 
 export const Dashboard = () => {
   const [authUser, setAuthUser] = useState<AuthUserType>();
@@ -40,7 +41,8 @@ export const Dashboard = () => {
         {authUser && <p>Welcome, {authUser.name}! </p>}
         <div>log out</div>
       </Header>
-      <EventCalendar />
+
+      <EventForm />
       <Footer>Event Planner App</Footer>
     </>
   );
