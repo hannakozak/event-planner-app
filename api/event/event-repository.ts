@@ -1,16 +1,28 @@
 import { Event } from './event-model'
+import { User } from '../user/user-model';
 
 const getAllEvents = async (reqQuery) => {
     const queryObject = { ...reqQuery };
-    const events = await Event.find({ queryObject })
+    const query = Event.find(queryObject)
+    const events = await query
     return events
 }
 
-const addEvent = async (title, description, date, time) => {
+const getUserEvents = async (userId) => {
+    const query = Event.find({ user: userId })
+    const events = await query
+    return events
+}
+
+const addEvent = async (reqBody, loginUser) => {
     const createdEvent = new Event({
-        title, description, date, time
+        ...reqBody, user: loginUser._id
     })
     await createdEvent.save()
+
+    loginUser.events = loginUser.events.concat(createdEvent._id)
+    await loginUser.save()
+
     return createdEvent
 }
 
@@ -38,6 +50,7 @@ const updateEventById = async (reqParams, reqBody) => {
 
 export const eventRepository = {
     getAllEvents,
+    getUserEvents,
     addEvent,
     getEventById,
     deleteEventById,

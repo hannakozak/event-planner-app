@@ -4,18 +4,27 @@ import { HttpError } from '../models/httpError';
 const getAllEvents = async (reqQuery) => {
     let events
     try {
-        let query = await eventRepository.getAllEvents(reqQuery)
-        events = await query
+        events = await eventRepository.getAllEvents(reqQuery)
     } catch (err) {
         throw new HttpError('Fetching events faild. Please, try again later.', 500)
     }
     return events
 }
 
-const addEvent = async (title, description, date, time) => {
+const getUserEvents = async (userId) => {
+    let events
+    try {
+        events = await eventRepository.getUserEvents(userId)
+    } catch (err) {
+        throw new HttpError('Fetching user events faild. Please, try again later', 500)
+    }
+    return events
+}
+
+const addEvent = async (reqBody, user) => {
     let createdEvent
     try {
-        createdEvent = await eventRepository.addEvent(title, description, date, time)
+        createdEvent = await eventRepository.addEvent(reqBody, user)
     } catch (err) {
         throw new HttpError('Adding new event faild. Please, try again later.', 500)
     }
@@ -53,6 +62,7 @@ const updateEventById = async (reqParams, reqBody) => {
 
 export const eventService = {
     getAllEvents,
+    getUserEvents,
     addEvent,
     getEventById,
     deleteEventById,

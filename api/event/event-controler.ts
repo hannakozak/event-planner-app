@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { eventService } from "./event-service";
-import { AddEventRequest, DeleteEventRequest, EventType, GetEventRequest, UpdateEventRequest } from './event-type';
+import { EventType } from './event-type';
+import { userService } from '../user/user-service';
 
-
-const getAllEvents: RequestHandler = async function (req: Request, res: Response, next: NextFunction) {
+const getAllEvents = async function (req, res: Response, next: NextFunction) {
     let events: EventType[]
     try {
-        let reqQuery = req.query
-        events = await eventService.getAllEvents(reqQuery);
+        events = await eventService.getAllEvents(req.query);
 
         if (events.length === 0) {
             return res.status(204).json({
@@ -24,12 +23,42 @@ const getAllEvents: RequestHandler = async function (req: Request, res: Response
     }
 };
 
-const addEvent: RequestHandler = async (req: AddEventRequest, res: Response, next: NextFunction) => {
-    const { title, description, date, time } = req.body
+const getUserEvents = async (req, res, next) => {
+    const userId = req.user.userId;
+    let events
+    try {
+        events = await eventService.getUserEvents(userId);
 
+        if (events.length === 0) {
+            return res.status(204).json({
+                message: "No events found",
+            });
+        }
+
+        return res.status(200).json({
+            data: events,
+        });
+
+    } catch (err) {
+        return next(err)
+    }
+}
+
+const addEvent = async (req: any, res, next) => {
+    const userId = req.user.userId;
+    let loginUser;
+    try {
+        loginUser = await userService.authUser(userId)
+    } catch (err) {
+        return next(err)
+    }
+
+    if (!loginUser) {
+        return res.status(401).json({ error: 'token missing or invalid' })
+    }
     let createdEvent: EventType;
     try {
-        createdEvent = await eventService.addEvent(title, description, date, time)
+        createdEvent = await eventService.addEvent(req.body, loginUser)
     } catch (err) {
         return next(err)
     }
@@ -38,7 +67,7 @@ const addEvent: RequestHandler = async (req: AddEventRequest, res: Response, nex
     res.json({ data: createdEvent })
 }
 
-const getEventById = async (req: GetEventRequest, res: Response, next: NextFunction) => {
+const getEventById = async (req: Request, res: Response, next: NextFunction) => {
     let event: EventType
     try {
         event = await eventService.getEventById(req.params)
@@ -50,7 +79,7 @@ const getEventById = async (req: GetEventRequest, res: Response, next: NextFunct
     }
 }
 
-const deleteEventById = async (req: DeleteEventRequest, res: Response, next: NextFunction) => {
+const deleteEventById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const event = await eventService.deleteEventById(req.params)
         return res.status(200).json({
@@ -61,7 +90,7 @@ const deleteEventById = async (req: DeleteEventRequest, res: Response, next: Nex
     }
 }
 
-const updateEventById = async (req: UpdateEventRequest, res: Response, next: NextFunction) => {
+const updateEventById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const event = await eventService.updateEventById(req.params, req.body)
         return res.status(200).json({
@@ -74,6 +103,7 @@ const updateEventById = async (req: UpdateEventRequest, res: Response, next: Nex
 
 export const eventControler = {
     getAllEvents,
+    getUserEvents,
     addEvent,
     getEventById,
     deleteEventById,

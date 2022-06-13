@@ -1,11 +1,14 @@
 import express from "express";
+import { checkAuth } from "../middleware/checkAuth";
 import { eventControler } from "./event-controler";
 
 export const eventRoutes = express.Router();
 
-eventRoutes.get('/', eventControler.getAllEvents)
+eventRoutes.get('/', checkAuth, eventControler.getAllEvents)
 
-eventRoutes.post('/', eventControler.addEvent)
+eventRoutes.get('/userEvents', checkAuth, eventControler.getUserEvents)
+
+eventRoutes.post('/', checkAuth, eventControler.addEvent)
 
 eventRoutes.get('/:id', eventControler.getEventById)
 

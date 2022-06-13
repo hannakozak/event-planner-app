@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
 import { userRoutes } from './user/user-routes';
+import { eventRoutes } from './event/event-routes';
 import cors from "cors";
 
 dotenv.config();
@@ -14,6 +15,7 @@ connectDatabase()
 const port = process.env.PORT;
 const app: Express = express();
 
+app.use(cors());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -30,6 +32,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/users', userRoutes)
+app.use('/api/events', eventRoutes)
 
 
 app.use((error, req, res, next) => {
@@ -46,4 +49,3 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
-
