@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
 import { FormStyled } from './EventForm.styled';
+import { useFetch } from '../../hooks/useFetch';
 
 export const EventForm = () => {
   const {
@@ -10,16 +11,20 @@ export const EventForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { sendRequest } = useFetch();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    await sendRequest('/api/events', 'POST', JSON.stringify(data), {
+      'Content-Type': 'application/json',
+      credentials: 'include',
+    });
   };
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <FormInput
-        register={register('eventName')}
-        name="eventName"
+        register={register('title')}
+        name="title"
         type="text"
         label="Event Name"
       />
@@ -30,14 +35,12 @@ export const EventForm = () => {
         type="text"
         label="Description"
       />
-
       <FormInput
         register={register('date')}
         name="date"
         type="date"
-        label="Date"
+        label="date"
       />
-
       <FormInput
         register={register('time')}
         name="time"
