@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
+import { Event } from '../Event/Event';
 import { EventsWrapper } from './EventsList.styled';
 
 type EventType = {
+  _id: number;
   title: string;
   description: string;
   date: string;
@@ -36,8 +38,16 @@ export const EventsList = () => {
 
   return (
     <EventsWrapper>
-      <h1>Daily Events</h1>
-      {eventsList && eventsList.map((event) => event.title)}
+      {eventsList &&
+        eventsList.map((event) => (
+          <Event
+            key={event._id}
+            title={event.title}
+            description={event.description}
+            date={event.date}
+            time={event.time}
+          />
+        ))}
     </EventsWrapper>
   );
 };
