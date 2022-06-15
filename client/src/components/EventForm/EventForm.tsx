@@ -9,6 +9,7 @@ export const EventForm = () => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm();
   const { sendRequest } = useFetch();
@@ -19,6 +20,10 @@ export const EventForm = () => {
       credentials: 'include',
     });
   };
+
+  React.useEffect(() => {
+    setFocus('title');
+  }, [setFocus]);
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>

@@ -15,6 +15,7 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm({ resolver: yupResolver(LoginSchema) });
 
@@ -25,6 +26,10 @@ export const LoginForm = () => {
     });
     navigate('/dashboard');
   };
+
+  React.useEffect(() => {
+    setFocus('email');
+  }, [setFocus]);
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>

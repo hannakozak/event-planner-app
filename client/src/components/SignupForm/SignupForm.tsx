@@ -13,6 +13,7 @@ export const SignupForm = () => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(SignupSchema) });
@@ -29,6 +30,10 @@ export const SignupForm = () => {
 
     reset();
   };
+
+  React.useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
