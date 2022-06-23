@@ -14,6 +14,7 @@ const getUserEvents = async (userId) => {
     return events
 }
 
+
 const addEvent = async (reqBody, loginUser) => {
     const createdEvent = new Event({
         ...reqBody, user: loginUser._id

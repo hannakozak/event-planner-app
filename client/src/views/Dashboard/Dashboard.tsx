@@ -5,13 +5,15 @@ import { Footer } from '../../components/Footer/Footer';
 import { Button } from '../../components/Button/Button';
 import { Modal } from '../../components/Modal/Modal';
 import { EventForm } from '../../components/EventForm/EventForm';
-import { EventsList } from '../../components/EventsList/EventsList';
+import { EventCalendar } from '../../components/CalendarEvent/EventCalendar';
 import { useAuth } from '../../context/authContext';
 import { useModal } from '../../hooks/useModal';
 import { Main } from './Dashboard.styled';
+import moment from 'moment';
 
 export const Dashboard = () => {
   const [authUser, setAuthUser] = useState<AuthUserType>();
+  const [eventsList, setEventsList] = useState<any>();
   const { sendRequest } = useFetch();
   const { logout } = useAuth();
   const { isModalVisible, toggleModalVisibility } = useModal();
@@ -22,6 +24,13 @@ export const Dashboard = () => {
     email: string;
   };
 
+  type EventType = {
+    _id: number;
+    title: string;
+    description: string;
+    start: Date;
+    end: Date;
+  };
   const getAuthUser = async () => {
     try {
       const responseData = await sendRequest(
@@ -40,7 +49,37 @@ export const Dashboard = () => {
 
   useEffect(() => {
     getAuthUser();
-  }, [sendRequest]);
+  }, []);
+
+  const getEvents = async () => {
+    try {
+      const responseData = await sendRequest(
+        '/api/events/userEvents',
+        'GET',
+        null,
+        {
+          credentials: 'include',
+        },
+      );
+      const formatedEventList = (responseData as any).data.map((event) => {
+        const { title, description, start, end } = event;
+        return {
+          title,
+          description,
+          start: moment(start).toDate(),
+          end: moment(end).toDate(),
+        };
+      });
+      setEventsList(formatedEventList);
+      console.log(responseData);
+    } catch (err) {
+      throw new Error('Problem with fetching events list');
+    }
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <>
@@ -58,9 +97,9 @@ export const Dashboard = () => {
           onSubmit={toggleModalVisibility}
           onCancel={toggleModalVisibility}
         >
-          <EventForm />
+          <EventForm getEvents={getEvents} />
         </Modal>
-        <EventsList />
+        <EventCalendar eventsList={eventsList} />
       </Main>
       <Footer>Event Planner App</Footer>
     </>

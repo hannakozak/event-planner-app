@@ -9,6 +9,7 @@ export type ButtonProps = {
   isDisabled?: boolean;
   color?: string;
   fontSize?: number;
+  margin?: string;
 };
 
 export const Button = ({

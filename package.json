@@ -5,6 +5,7 @@
     "vercel-build": "cd client && npm install && npm run build"
   },
   "dependencies": {
+    "@zach.codes/react-calendar": "^0.3.1",
     "concurrently": "^7.1.0"
   }
 }
