@@ -1,6 +1,7 @@
 export type Colors = {
     ebonyClay: string;
     charade: string;
+    solitude: string;
     turquoise: string;
     bondiBlue: string;
     teal: string;
@@ -13,6 +14,7 @@ export type Colors = {
 export const colors: Colors = {
     ebonyClay: '#222831',
     charade: '#2F2E41',
+    solitude: '#eaf6ff',
     turquoise: '#00DEE8',
     bondiBlue: '#00ADB5',
     teal: '#00797e',

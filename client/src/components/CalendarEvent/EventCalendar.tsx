@@ -6,6 +6,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import enGB from 'date-fns/locale/en-GB';
+import { CalendarWrapper } from './EventCalendar.styled';
 
 const locales = {
   'en-UK': enGB,
@@ -32,7 +33,7 @@ type EventCalendarTypes = {
 };
 export const EventCalendar = ({ eventsList }: EventCalendarTypes) => {
   return (
-    <>
+    <CalendarWrapper>
       <Calendar
         localizer={localizer}
         events={eventsList}
@@ -40,6 +41,6 @@ export const EventCalendar = ({ eventsList }: EventCalendarTypes) => {
         endAccessor="end"
         style={{ height: 600 }}
       />
-    </>
+    </CalendarWrapper>
   );
 };
