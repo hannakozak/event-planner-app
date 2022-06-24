@@ -35,8 +35,8 @@ export const CalendarWrapper = styled.div`
     font-weight: bold;
   }
   .rbc-today {
-    border: 3px solid ${({ theme }) => theme.colors.teal};
-    background: ${({ theme }) => theme.colors.white};
+    border: 1px solid ${({ theme }) => theme.colors.bondiBlue};
+    background: ${({ theme }) => theme.colors.solitude};
   }
 
   .rbc-off-range-bg {

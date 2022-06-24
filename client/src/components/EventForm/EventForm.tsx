@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
-import { FormStyled } from './EventForm.styled';
+import { FormStyled, DatePickerStyled, LabelStyled } from './EventForm.styled';
 import { useFetch } from '../../hooks/useFetch';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
@@ -49,12 +49,12 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
         type="text"
         label="Description"
       />
+      <LabelStyled>Select event start date</LabelStyled>
       <Controller
         control={control}
         name="start"
         render={({ field }) => (
-          <DatePicker
-            placeholderText="Select date"
+          <DatePickerStyled
             onChange={(date) => field.onChange(date)}
             selected={field.value}
             value={field.value}
@@ -66,12 +66,12 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
           />
         )}
       />
+      <LabelStyled>Select event end date</LabelStyled>
       <Controller
         control={control}
         name="end"
         render={({ field }) => (
-          <DatePicker
-            placeholderText="Select end date"
+          <DatePickerStyled
             onChange={(date) => field.onChange(date)}
             selected={field.value}
             value={field.value}

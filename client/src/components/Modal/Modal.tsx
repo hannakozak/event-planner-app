@@ -36,7 +36,7 @@ export const Modal = ({
           <ModalStyled>
             <div>
               <ModalHeader>
-                <Heading level={1} color="#00ADB5">
+                <Heading level={2} color="#00ADB5">
                   {title}
                 </Heading>
                 <CloseIcon onClick={onCancel} />

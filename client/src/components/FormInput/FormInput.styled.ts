@@ -6,6 +6,7 @@ export const InputStyled = styled.input`
   border-radius: 4px;
   padding: 0.5rem;
   font-weight: 500;
+  margin: 1rem 0;
   &:hover,
   &:active {
     border: 1px solid ${({ theme }) => theme.colors.bondiBlue};

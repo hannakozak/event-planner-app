@@ -8,6 +8,7 @@ export type FormInputProps = {
   name: string;
   type: HTMLInputTypeAttribute;
   label: string;
+  placeholder?: string;
 };
 
 export const FormInput = ({
@@ -16,11 +17,17 @@ export const FormInput = ({
   name,
   label,
   type,
+  placeholder,
 }: FormInputProps) => {
   return (
     <>
       <LabelStyled htmlFor={name}>{label}</LabelStyled>
-      <InputStyled id={name} type={type} {...register} />
+      <InputStyled
+        id={name}
+        type={type}
+        {...register}
+        placeholder={placeholder}
+      />
       {error && <span>{error.message}</span>}
     </>
   );

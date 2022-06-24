@@ -30,16 +30,16 @@ export const BackdropStyled = styled.div`
 
 export const ModalStyled = styled.div`
   position: fixed;
-  top: 10%;
+  top: 5%;
   left: 5%;
   width: 90%;
   background-color: ${({ theme }) => theme.colors.white};
-  padding: 1rem;
+  padding: 3rem 1rem;
   border-radius: 14px;
   box-shadow: 0px 3px 7px ${({ theme }) => theme.colors.bondiBlue};
   z-index: 30;
   overflow: auto;
-  max-height: 95%;
+  max-height: 90%;
     @media ${({ theme }) => theme.device.mobileS} {
       left: 10%;
       width: 80%;
