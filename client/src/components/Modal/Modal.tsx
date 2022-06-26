@@ -13,8 +13,9 @@ import { Heading } from '../Typography/Typography';
 type ModalProps = {
   title?: string;
   isVisible: boolean;
-  onCancel: () => void;
-  onSubmit: (e: React.SyntheticEvent) => void;
+  onCancel?: () => void;
+  onCancelSecondModal?: (closeModal) => void;
+  onSubmit?: (e: React.SyntheticEvent) => void;
   submitButtonLabel?: string;
   cancelButtonLabel?: string;
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export const Modal = ({
   title,
   isVisible,
   onCancel,
+  onCancelSecondModal,
   onSubmit,
   submitButtonLabel,
   cancelButtonLabel,
@@ -39,16 +41,31 @@ export const Modal = ({
                 <Heading level={2} color="#00ADB5">
                   {title}
                 </Heading>
-                <CloseIcon onClick={onCancel} />
+                {onCancel && <CloseIcon onClick={onCancel} />}
+                {onCancelSecondModal && (
+                  <CloseIcon onClick={onCancelSecondModal} />
+                )}
               </ModalHeader>
               <div>{children ? <div>{children}</div> : null}</div>
               <ButtonsWrapper>
-                <Button variant="secondary" onClick={() => onCancel()}>
-                  {cancelButtonLabel ?? 'Cancel'}
-                </Button>
-                <Button variant="primary" onClick={(e) => onSubmit(e)}>
-                  {submitButtonLabel ?? 'Submit'}
-                </Button>
+                {onCancel && (
+                  <Button variant="secondary" onClick={() => onCancel()}>
+                    {cancelButtonLabel ?? 'Cancel'}
+                  </Button>
+                )}
+                {onCancelSecondModal && (
+                  <Button
+                    variant="secondary"
+                    onClick={(closeModal) => onCancelSecondModal(closeModal)}
+                  >
+                    {cancelButtonLabel ?? 'Cancel'}
+                  </Button>
+                )}
+                {onSubmit && (
+                  <Button variant="primary" onClick={(e) => onSubmit(e)}>
+                    {submitButtonLabel ?? 'Submit'}
+                  </Button>
+                )}
               </ButtonsWrapper>
             </div>
           </ModalStyled>

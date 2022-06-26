@@ -30,10 +30,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     text-decoration: none;
 }
 
-input[type="file" i] {
-     display: none;
-}
-
 .react-datepicker__header {
   background-color: ${({ theme }) => theme.colors.bondiBlue};
 }

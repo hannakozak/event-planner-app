@@ -16,6 +16,10 @@ export const ModalHeader = styled.div`
 
 export const ButtonsWrapper = styled.div`
   text-align: right;
+  & button {
+    margin: 1rem;
+    min-width: 13rem;
+  }
 `
 export const BackdropStyled = styled.div`
   position: fixed;

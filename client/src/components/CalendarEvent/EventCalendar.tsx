@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal } from '../Modal/Modal';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { Event } from '../Event/Event';
+import { useModal } from '../../hooks/useModal';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -30,8 +33,40 @@ type EventType = {
 
 type EventCalendarTypes = {
   eventsList: EventType[];
+  getEvents: () => Promise<any>;
 };
-export const EventCalendar = ({ eventsList }: EventCalendarTypes) => {
+
+export const EventCalendar = ({
+  eventsList,
+  getEvents,
+}: EventCalendarTypes) => {
+  const [selectedEvent, setSelectedEvent] = useState<EventType>();
+  const { isModalVisible, toggleModalVisibility } = useModal();
+
+  const handleSelectEvent = (event: EventType) => {
+    setSelectedEvent(event);
+    toggleModalVisibility();
+  };
+
+  const onCancel = (closeModal) => {
+    toggleModalVisibility();
+    closeModal();
+  };
+  const renderModal = (selectedEvent: EventType) => {
+    return (
+      <Modal
+        isVisible={isModalVisible}
+        onCancelSecondModal={onCancel}
+        cancelButtonLabel="close"
+      >
+        <Event
+          selectedEvent={selectedEvent}
+          getEvents={getEvents}
+          onCancel={onCancel}
+        />
+      </Modal>
+    );
+  };
   return (
     <CalendarWrapper>
       <Calendar
@@ -39,8 +74,10 @@ export const EventCalendar = ({ eventsList }: EventCalendarTypes) => {
         events={eventsList}
         startAccessor="start"
         endAccessor="end"
+        onSelectEvent={handleSelectEvent}
         style={{ height: 600 }}
       />
+      {selectedEvent && renderModal(selectedEvent)}
     </CalendarWrapper>
   );
 };

@@ -7,7 +7,7 @@ export const useFetch = () => {
 
     const activeHttpRequest = useRef([] as any)
 
-    const sendRequest = useCallback(async (url: string, method: 'GET' | 'POST', body, headers): Promise<void> => {
+    const sendRequest = useCallback(async (url: string, method: 'GET' | 'POST' | 'PUT', body, headers): Promise<any> => {
         setIsLoading(true)
 
         const httpAbortController: AbortController = new AbortController()

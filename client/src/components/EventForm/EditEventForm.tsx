@@ -1,49 +1,81 @@
-import React from 'react';
-import { Modal } from '../Modal/Modal';
+import React, { useState } from 'react';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
+import { Modal } from '../Modal/Modal';
 import { FormStyled, DatePickerStyled, LabelStyled } from './EventForm.styled';
 import { useFetch } from '../../hooks/useFetch';
 import { Controller, useForm } from 'react-hook-form';
-import { useModal } from '../../hooks/useModal';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useModal } from '../../hooks/useModal';
 
-type EventFormProps = {
-  getEvents: () => Promise<void>;
+type EditEventFormProps = {
+  selectedEvent: EventType;
+  getEvents: () => Promise<any>;
+  onCancel: (closeModal) => void;
 };
 
-export const EventForm = ({ getEvents }: EventFormProps) => {
+type EventType = {
+  _id: number;
+  title: string;
+  description: string;
+  start: Date;
+  end: Date;
+};
+
+export const EditEventForm = ({
+  selectedEvent,
+  getEvents,
+  onCancel,
+}: EditEventFormProps) => {
+  const defaultValues = {
+    _id: selectedEvent._id,
+    title: selectedEvent.title,
+    description: selectedEvent.description,
+    start: selectedEvent.start,
+    end: selectedEvent.end,
+  };
+
   const { isModalVisible, toggleModalVisibility } = useModal();
+  const [editedEvent, setEditedEvent] = useState<EventType>(defaultValues);
+
   const {
     control,
     register,
     handleSubmit,
-    setFocus,
-    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: editedEvent,
+  });
+
   const { sendRequest } = useFetch();
+  const eventId = selectedEvent._id;
 
   const onSubmit = async (data) => {
-    await sendRequest('/api/events', 'POST', JSON.stringify(data), {
-      'Content-Type': 'application/json',
-      credentials: 'include',
-    });
+    const result = await sendRequest(
+      `/api/events/${eventId}`,
+      'PUT',
+      JSON.stringify(data),
+      {
+        'Content-Type': 'application/json',
+        credentials: 'include',
+      },
+    );
+    setEditedEvent(result.data);
     toggleModalVisibility();
+    onCancel(toggleModalVisibility);
     getEvents();
-    reset();
   };
 
   return (
     <>
       <Button type="button" variant="primary" onClick={toggleModalVisibility}>
-        Add Event
+        Edit Event
       </Button>
       <Modal
         isVisible={isModalVisible}
         onSubmit={handleSubmit(onSubmit)}
         onCancel={toggleModalVisibility}
-        submitButtonLabel="createEvent"
+        submitButtonLabel="edit"
       >
         <FormStyled>
           <FormInput
@@ -65,7 +97,7 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
             name="start"
             render={({ field }) => (
               <DatePickerStyled
-                onChange={(start) => field.onChange(start)}
+                onChange={(date) => field.onChange(date)}
                 selected={field.value}
                 value={field.value}
                 showTimeSelect
@@ -82,7 +114,7 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
             name="end"
             render={({ field }) => (
               <DatePickerStyled
-                onChange={(end) => field.onChange(end)}
+                onChange={(date) => field.onChange(date)}
                 selected={field.value}
                 value={field.value}
                 timeFormat="HH:mm"

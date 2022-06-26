@@ -41,12 +41,12 @@ const updateEventById = async (reqParams, reqBody) => {
     const eventToUpdate = {
         title: reqBody.title,
         description: reqBody.description,
-        date: reqBody.date,
-        time: reqBody.time
+        start: reqBody.start,
+        end: reqBody.end
     }
     const event = await Event.findByIdAndUpdate(reqParams.id, eventToUpdate)
     event.save();
-    return eventToUpdate
+    return event
 }
 
 export const eventRepository = {

@@ -27,6 +27,7 @@ export const LabelStyled = styled.label`
 
 export const DatePickerStyled = styled(DatePicker)`
   font-size: ${({ theme }) => theme.fontSize.xxs};
+  font-family: 'Raleway',sans-serif;
   border: 1px solid ${({ theme }) => theme.colors.blueStone};
   border-radius: 4px;
   padding: 0.5rem;
