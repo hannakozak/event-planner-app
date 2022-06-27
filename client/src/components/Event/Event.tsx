@@ -1,8 +1,9 @@
 import React from 'react';
-import { EventWrapper, EventTime } from './Event.styled';
+import { EventWrapper, EventTime, ActionButtons } from './Event.styled';
 import { Text } from '../Typography/Typography';
 import { Heading } from '../Typography/Typography';
 import { EditEventForm } from '../EventForm/EditEventForm';
+import { DeleteEvent } from '../DeleteEvent/DeleteEvent';
 
 type EventType = {
   _id: number;
@@ -23,6 +24,7 @@ export const Event = ({ selectedEvent, getEvents, onCancel }: EventProps) => {
 
   const startTime = selectedEvent.start.toString().slice(16, 21);
   const endTime = selectedEvent.end.toString().slice(16, 21);
+
   return (
     <EventWrapper>
       <EventTime>
@@ -39,11 +41,18 @@ export const Event = ({ selectedEvent, getEvents, onCancel }: EventProps) => {
         {selectedEvent.title}
       </Heading>
       <Text>{selectedEvent.description}</Text>
-      <EditEventForm
-        selectedEvent={selectedEvent}
-        getEvents={getEvents}
-        onCancel={onCancel}
-      />
+      <ActionButtons>
+        <EditEventForm
+          selectedEvent={selectedEvent}
+          getEvents={getEvents}
+          onCancel={onCancel}
+        />
+        <DeleteEvent
+          selectedEvent={selectedEvent}
+          getEvents={getEvents}
+          onCancel={onCancel}
+        />
+      </ActionButtons>
     </EventWrapper>
   );
 };

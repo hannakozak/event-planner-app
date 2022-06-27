@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+import { TiEdit } from 'react-icons/ti';
 
 export const FormStyled = styled.form`
   display: flex;
@@ -35,3 +36,8 @@ export const DatePickerStyled = styled(DatePicker)`
   width: 100%;
   margin: 1rem 0;
 `
+export const EditIcon = styled(TiEdit)`
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  color: ${({ theme }) => theme.colors.bondiBlue};
+  font-weight: 500;
+`;

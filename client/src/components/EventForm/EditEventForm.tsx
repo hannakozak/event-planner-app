@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
 import { Modal } from '../Modal/Modal';
-import { FormStyled, DatePickerStyled, LabelStyled } from './EventForm.styled';
+import {
+  FormStyled,
+  DatePickerStyled,
+  LabelStyled,
+  EditIcon,
+} from './EventForm.styled';
 import { useFetch } from '../../hooks/useFetch';
 import { Controller, useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -68,14 +72,12 @@ export const EditEventForm = ({
 
   return (
     <>
-      <Button type="button" variant="primary" onClick={toggleModalVisibility}>
-        Edit Event
-      </Button>
+      <EditIcon onClick={toggleModalVisibility} />
       <Modal
         isVisible={isModalVisible}
         onSubmit={handleSubmit(onSubmit)}
         onCancel={toggleModalVisibility}
-        submitButtonLabel="edit"
+        submitButtonLabel="Edit"
       >
         <FormStyled>
           <FormInput

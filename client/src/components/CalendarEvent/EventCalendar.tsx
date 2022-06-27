@@ -48,7 +48,7 @@ export const EventCalendar = ({
     toggleModalVisibility();
   };
 
-  const onCancel = (closeModal) => {
+  const onCancel = (closeModal: () => void) => {
     toggleModalVisibility();
     closeModal();
   };

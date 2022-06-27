@@ -69,7 +69,6 @@ export const Dashboard = () => {
         };
       });
       setEventsList(formatedEventList);
-      console.log(responseData);
     } catch (err) {
       throw new Error('Problem with fetching events list');
     }
