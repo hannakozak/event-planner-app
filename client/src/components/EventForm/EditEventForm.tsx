@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { FormInput } from '../FormInput/FormInput';
 import { Modal } from '../Modal/Modal';
+import { useFetch } from '../../hooks/useFetch';
+import { Controller, useForm } from 'react-hook-form';
+import { useModal } from '../../hooks/useModal';
+import { toast } from 'react-toastify';
+import 'react-datepicker/dist/react-datepicker.css';
 import {
   FormStyled,
   DatePickerStyled,
   LabelStyled,
   EditIcon,
 } from './EventForm.styled';
-import { useFetch } from '../../hooks/useFetch';
-import { Controller, useForm } from 'react-hook-form';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useModal } from '../../hooks/useModal';
 
 type EditEventFormProps = {
   selectedEvent: EventType;
@@ -64,6 +65,9 @@ export const EditEventForm = ({
         credentials: 'include',
       },
     );
+    toast.success('Event edited successfully!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
     setEditedEvent(result.data);
     toggleModalVisibility();
     onCancel(toggleModalVisibility);

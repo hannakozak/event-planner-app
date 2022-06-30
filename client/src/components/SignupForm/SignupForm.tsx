@@ -1,12 +1,14 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
-import { FormStyled } from './SignupForm.styled';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { useForm } from 'react-hook-form';
 import { useFetch } from '../../hooks/useFetch';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SignupSchema } from './SignupValidation';
-import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { FormStyled } from './SignupForm.styled';
 
 export const SignupForm = () => {
   const { sendRequest, error } = useFetch();
@@ -17,6 +19,7 @@ export const SignupForm = () => {
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(SignupSchema) });
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     await sendRequest(
@@ -28,6 +31,15 @@ export const SignupForm = () => {
       },
     );
 
+    const loginData = { email: data.email, password: data.password };
+    await sendRequest('/api/users/login', 'POST', JSON.stringify(loginData), {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+    navigate('/dashboard');
+    toast.success('Account created!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
     reset();
   };
 

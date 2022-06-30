@@ -1,13 +1,14 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
-import { FormStyled } from './LoginForm.styled';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useFetch } from '../../hooks/useFetch';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginSchema } from './LoginValidation';
-import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { FormStyled } from './LoginForm.styled';
 
 export const LoginForm = () => {
   const { sendRequest, error } = useFetch();
@@ -25,6 +26,9 @@ export const LoginForm = () => {
       Accept: 'application/json',
     });
     navigate('/dashboard');
+    toast.success('Log in successful!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   React.useEffect(() => {

@@ -4,6 +4,8 @@ import { Modal } from '../Modal/Modal';
 import { useFetch } from '../../hooks/useFetch';
 import { useModal } from '../../hooks/useModal';
 import { DeleteIcon } from './DeleteEvent.styled';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 type EventType = {
   _id: number;
@@ -25,7 +27,6 @@ export const DeleteEvent = ({
 }: DeleteEventProps) => {
   const { sendRequest } = useFetch();
   const { isModalVisible, toggleModalVisibility } = useModal();
-
   const eventId = selectedEvent._id;
 
   const deleteEvent = async () => {
@@ -35,6 +36,9 @@ export const DeleteEvent = ({
       {},
       { credentials: 'include' },
     );
+    toast.success('Event deleted!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
     getEvents();
     onCancel(toggleModalVisibility);
   };

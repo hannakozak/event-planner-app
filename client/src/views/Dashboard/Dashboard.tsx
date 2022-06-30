@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useFetch } from '../../hooks/useFetch';
 import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { EventForm } from '../../components/EventForm/EventForm';
 import { EventCalendar } from '../../components/CalendarEvent/EventCalendar';
 import { useAuth } from '../../context/authContext';
-import { Main } from './Dashboard.styled';
+import { useFetch } from '../../hooks/useFetch';
 import moment from 'moment';
+import { Slide } from 'react-toastify';
+import { Main, StyledToast } from './Dashboard.styled';
 
 type AuthUserType = {
   _id: number;
@@ -80,6 +81,7 @@ export const Dashboard = () => {
 
   return (
     <>
+      <StyledToast transition={Slide} autoClose={3000} />
       <Header>
         {authUser && <p>Welcome, {authUser.name}! </p>}
         <div onClick={() => logout()}>log out</div>

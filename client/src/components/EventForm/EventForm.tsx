@@ -2,11 +2,12 @@ import React from 'react';
 import { Modal } from '../Modal/Modal';
 import { Button } from '../Button/Button';
 import { FormInput } from '../FormInput/FormInput';
-import { FormStyled, DatePickerStyled, LabelStyled } from './EventForm.styled';
 import { useFetch } from '../../hooks/useFetch';
 import { Controller, useForm } from 'react-hook-form';
 import { useModal } from '../../hooks/useModal';
+import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FormStyled, DatePickerStyled, LabelStyled } from './EventForm.styled';
 
 type EventFormProps = {
   getEvents: () => Promise<void>;
@@ -18,7 +19,6 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
     control,
     register,
     handleSubmit,
-    setFocus,
     reset,
     formState: { errors },
   } = useForm();
@@ -28,6 +28,9 @@ export const EventForm = ({ getEvents }: EventFormProps) => {
     await sendRequest('/api/events', 'POST', JSON.stringify(data), {
       'Content-Type': 'application/json',
       credentials: 'include',
+    });
+    toast.success('New event added!', {
+      position: toast.POSITION.TOP_CENTER,
     });
     toggleModalVisibility();
     getEvents();
