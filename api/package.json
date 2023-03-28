@@ -38,7 +38,7 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/multer": "^1.4.7",
-    "@types/node": "^17.0.25",
+    "@types/node": "^17.0.45",
     "concurrently": "^7.1.0",
     "nodemon": "^2.0.15",
     "tslint": "^6.1.3",
