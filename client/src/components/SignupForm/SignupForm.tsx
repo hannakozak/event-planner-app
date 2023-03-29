@@ -23,7 +23,7 @@ export const SignupForm = () => {
 
   const onSubmit = async (data) => {
     await sendRequest(
-      'http://localhost:8000/api/users/register',
+      'https://event-backend-o9rz.onrender.com/api/users/register',
       'POST',
       JSON.stringify(data),
       {

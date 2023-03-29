@@ -48,3 +48,11 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at ${process.env.BASE_URL}`);
 });
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder up in production
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')),
+  );
+}
