@@ -5,7 +5,8 @@
     "allowJs": true,
     "target": "ESNext",
     "noEmit": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "node"
   }
 }
