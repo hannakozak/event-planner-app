@@ -21,7 +21,7 @@ export const LoginForm = () => {
   } = useForm({ resolver: yupResolver(LoginSchema) });
 
   const onSubmit = async (data) => {
-    await sendRequest(`$/api/users/login`, 'POST', JSON.stringify(data), {
+    await sendRequest(`/api/users/login`, 'POST', JSON.stringify(data), {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });

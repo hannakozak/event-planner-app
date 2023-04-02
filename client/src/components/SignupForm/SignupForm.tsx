@@ -22,9 +22,14 @@ export const SignupForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await sendRequest('/api/users/register', 'POST', JSON.stringify(data), {
-      'Content-Type': 'application/json',
-    });
+    await sendRequest(
+      `{process.env.REACT_APP_URL}/api/users/register`,
+      'POST',
+      JSON.stringify(data),
+      {
+        'Content-Type': 'application/json',
+      },
+    );
 
     const loginData = { email: data.email, password: data.password };
     await sendRequest('/api/users/login', 'POST', JSON.stringify(loginData), {
