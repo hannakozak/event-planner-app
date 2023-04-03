@@ -29,10 +29,15 @@ export const SignupForm = () => {
     });
 
     const loginData = { email: data.email, password: data.password };
-    await sendRequest('/api/users/login', 'POST', JSON.stringify(loginData), {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
+    await sendRequest(
+      'https://event-backend-o9rz.onrender.com/api/users/login',
+      'POST',
+      JSON.stringify(loginData),
+      {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    );
     navigate('/dashboard');
     toast.success('Account created!', {
       position: toast.POSITION.TOP_CENTER,
