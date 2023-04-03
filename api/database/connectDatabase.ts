@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const connectDatabase = () => {
-    try {
-        mongoose.connect(process.env.MONGO_URI, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
-        } as ConnectOptions);
-        console.log('mongo database is connected');
-    } catch (error) {
-        console.error('mongo database connection error');
-    }
+  try {
+    mongoose.connect(process.env.MONGO_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    } as ConnectOptions);
+    mongoose.set('strictQuery', true);
+    console.log('mongo database is connected');
+  } catch (error) {
+    console.error('mongo database connection error');
+  }
 };
-

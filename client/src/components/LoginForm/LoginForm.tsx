@@ -10,6 +10,8 @@ import { LoginSchema } from './LoginValidation';
 import { toast } from 'react-toastify';
 import { FormStyled } from './LoginForm.styled';
 
+//const API_URL = 'https://event-backend-o9rz.onrender.com';
+
 export const LoginForm = () => {
   const { sendRequest, error } = useFetch();
   const navigate = useNavigate();
