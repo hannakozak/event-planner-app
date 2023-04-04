@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { FormStyled } from './SignupForm.styled';
 
-//const API_URL = 'https://event-backend-o9rz.onrender.com';
-
 export const SignupForm = () => {
   const { sendRequest, error } = useFetch();
   const {
@@ -24,20 +22,15 @@ export const SignupForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await sendRequest(`/api/users/register`, 'POST', JSON.stringify(data), {
+    await sendRequest('/api/users/register', 'POST', JSON.stringify(data), {
       'Content-Type': 'application/json',
     });
 
     const loginData = { email: data.email, password: data.password };
-    await sendRequest(
-      'https://event-backend-o9rz.onrender.com/api/users/login',
-      'POST',
-      JSON.stringify(loginData),
-      {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    );
+    await sendRequest(`/api/users/login`, 'POST', JSON.stringify(loginData), {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
     navigate('/dashboard');
     toast.success('Account created!', {
       position: toast.POSITION.TOP_CENTER,

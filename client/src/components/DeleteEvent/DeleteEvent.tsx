@@ -6,6 +6,7 @@ import { useModal } from '../../hooks/useModal';
 import { DeleteIcon } from './DeleteEvent.styled';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { API_URL } from '../../assets/constants';
 
 type EventType = {
   _id: number;
@@ -31,7 +32,7 @@ export const DeleteEvent = ({
 
   const deleteEvent = async () => {
     await sendRequest(
-      `/api/events/${eventId}`,
+      `${API_URL}/api/events/${eventId}`,
       'DELETE',
       {},
       { credentials: 'include' },

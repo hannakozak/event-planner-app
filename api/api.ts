@@ -14,8 +14,11 @@ connectDatabase();
 
 const port = process.env.PORT;
 const app: Express = express();
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -45,8 +48,9 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at ${process.env.BASE_URL}`);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`⚡️[server]: Server is running at ${PORT}}`);
 });
 if (process.env.NODE_ENV === 'production') {
   //*Set static folder up in production
