@@ -1,7 +1,14 @@
 {
-  "version": "2",
+  "name": "eventplannerapp",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "./api/api.ts",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "dev": "concurrently -k \"cd api && ts-node index.ts\" \"cd client && npm start\" "
+    "dev": "concurrently -k \"cd api && ts-node api.ts\" \"cd client && npm start\" ",
+    "start": "cd ./api && ts-node api.ts"
   },
   "dependencies": {
     "concurrently": "^7.1.0",
