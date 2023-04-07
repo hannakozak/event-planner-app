@@ -1,4 +1,5 @@
-import express, { Express, Request, Response } from 'express';
+import { Request, Response, Application } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import { connectDatabase } from './database/connectDatabase';
 import morgan from 'morgan';
@@ -13,7 +14,7 @@ dotenv.config();
 connectDatabase();
 
 const port = process.env.PORT;
-const app: Express = express();
+const app: Application = express();
 const corsOptions = {
   origin: 'http://localhost:3000',
 };
