@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "engines": {
-    "node": ">=14"
+    "node": ">=15 <17"
   },
   "type": "module",
   "version": "1.0.0",
