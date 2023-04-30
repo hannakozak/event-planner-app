@@ -1,6 +1,5 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import { connectDatabase } from './database/connectDatabase';
 import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -8,10 +7,21 @@ import cookieParser from 'cookie-parser';
 import { userRoutes } from './user/user-routes';
 import { eventRoutes } from './event/event-routes';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 dotenv.config();
-connectDatabase();
 
+const connectDatabase = (): void => {
+  try {
+    mongoose.connect(process.env.MONGO_URI as string);
+    mongoose.set('strictQuery', true);
+    console.log('mongo database is connected');
+  } catch (error) {
+    console.error('mongo database connection error');
+  }
+};
+
+connectDatabase();
 const port = process.env.PORT;
 const app: Express = express();
 const corsOptions = {
