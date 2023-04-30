@@ -1,6 +1,6 @@
-export type UserType = {
-    _id: number,
-    name: string,
-    email: string,
-    password: string
+import { UserType } from './user-model';
+import { Request } from 'express';
+
+export interface RequestWithUser extends Request {
+  user: UserType;
 }

@@ -1,17 +1,19 @@
-import Joi from 'joi'
-import { HttpError } from '../models/httpError'
+import Joi, { Schema } from 'joi';
+import { HttpError } from '../models/httpError';
+import { Request, NextFunction, Response } from 'express';
 
-export const validate = (schema) => (req, res, next) => {
-    const { value, error } = Joi.compile(schema).validate(req.body)
+export const validate =
+  (schema: Schema) => (req: Request, res: Response, next: NextFunction) => {
+    const { value, error } = Joi.compile(schema).validate(req.body);
 
     if (error) {
-        const errorMessage = error.details
-            .map((details) => details.message)
-            .join(', ')
+      const errorMessage = error.details
+        .map((details) => details.message)
+        .join(', ');
 
-        throw new HttpError(errorMessage, 400)
+      throw new HttpError(errorMessage, 400);
     }
 
-    Object.assign(req, value)
-    return next()
-}
+    Object.assign(req, value);
+    return next();
+  };

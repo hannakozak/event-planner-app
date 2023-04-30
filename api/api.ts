@@ -1,5 +1,4 @@
-import { Request, Response, Application } from 'express';
-import express from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import { connectDatabase } from './database/connectDatabase';
 import morgan from 'morgan';
@@ -14,7 +13,7 @@ dotenv.config();
 connectDatabase();
 
 const port = process.env.PORT;
-const app: Application = express();
+const app: Express = express();
 const corsOptions = {
   origin: 'http://localhost:3000',
 };
@@ -38,16 +37,23 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 
-app.use((error, req, res, next) => {
-  res.locals.error = error;
+app.use(
+  (
+    error: { status: number; message: any },
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    res.locals.error = error;
 
-  if (res.headerSent) {
-    return next(error);
-  }
-  const status = error.status || 500;
-  res.status(status);
-  res.json({ message: error.message || 'An unknown error occurred!' });
-});
+    if (res.headersSent) {
+      return next(error);
+    }
+    const status = error.status || 500;
+    res.status(status);
+    res.json({ message: error.message || 'An unknown error occurred!' });
+  },
+);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

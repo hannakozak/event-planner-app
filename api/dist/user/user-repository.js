@@ -1,0 +1,34 @@
+import { User } from './user-model';
+import bcrypt from "bcryptjs/dist/bcrypt.js";
+const getAllUsers = async () => {
+    const users = await User.find({}, '-password');
+    return users;
+};
+const findUserByEmail = async (email) => {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+        return;
+    }
+    return existingUser;
+};
+const findUserById = async (userId) => {
+    const authUser = await User.findOne({ _id: userId }).select("-password");
+    return authUser;
+};
+const register = async (name, email, password) => {
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const createdUser = new User({
+        name,
+        email,
+        password: hashedPassword,
+    });
+    await createdUser.save();
+    return createdUser._id;
+};
+export const userRepository = {
+    getAllUsers,
+    findUserByEmail,
+    findUserById,
+    register,
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlci1yZXBvc2l0b3J5LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vdXNlci91c2VyLXJlcG9zaXRvcnkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLElBQUksRUFBRSxNQUFNLGNBQWMsQ0FBQTtBQUVuQyxPQUFPLE1BQU0sTUFBTSx5QkFBeUIsQ0FBQztBQUU3QyxNQUFNLFdBQVcsR0FBRyxLQUFLLElBQUksRUFBRTtJQUMzQixNQUFNLEtBQUssR0FBZSxNQUFNLElBQUksQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLFdBQVcsQ0FBQyxDQUFBO0lBQzFELE9BQU8sS0FBSyxDQUFBO0FBQ2hCLENBQUMsQ0FBQTtBQUVELE1BQU0sZUFBZSxHQUFHLEtBQUssRUFBRSxLQUFhLEVBQUUsRUFBRTtJQUM1QyxNQUFNLFlBQVksR0FBYSxNQUFNLElBQUksQ0FBQyxPQUFPLENBQUMsRUFBRSxLQUFLLEVBQUUsQ0FBQyxDQUFBO0lBQzVELElBQUksQ0FBQyxZQUFZLEVBQUU7UUFDZixPQUFNO0tBQ1Q7SUFDRCxPQUFPLFlBQVksQ0FBQTtBQUN2QixDQUFDLENBQUE7QUFFRCxNQUFNLFlBQVksR0FBRyxLQUFLLEVBQUUsTUFBYyxFQUFFLEVBQUU7SUFDMUMsTUFBTSxRQUFRLEdBQUcsTUFBTSxJQUFJLENBQUMsT0FBTyxDQUFDLEVBQUUsR0FBRyxFQUFFLE1BQU0sRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLFdBQVcsQ0FBQyxDQUFBO0lBQ3hFLE9BQU8sUUFBUSxDQUFBO0FBQ25CLENBQUMsQ0FBQTtBQUVELE1BQU0sUUFBUSxHQUFHLEtBQUssRUFBRSxJQUFZLEVBQUUsS0FBYSxFQUFFLFFBQWdCLEVBQUUsRUFBRTtJQUNyRSxNQUFNLGNBQWMsR0FBRyxNQUFNLE1BQU0sQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLEVBQUUsQ0FBQyxDQUFBO0lBRXRELE1BQU0sV0FBVyxHQUFHLElBQUksSUFBSSxDQUFDO1FBQ3pCLElBQUk7UUFDSixLQUFLO1FBQ0wsUUFBUSxFQUFFLGNBQWM7S0FDM0IsQ0FBQyxDQUFBO0lBRUYsTUFBTSxXQUFXLENBQUMsSUFBSSxFQUFFLENBQUE7SUFDeEIsT0FBTyxXQUFXLENBQUMsR0FBRyxDQUFBO0FBQzFCLENBQUMsQ0FBQTtBQUdELE1BQU0sQ0FBQyxNQUFNLGNBQWMsR0FBRztJQUMxQixXQUFXO0lBQ1gsZUFBZTtJQUNmLFlBQVk7SUFDWixRQUFRO0NBQ1gsQ0FBQyJ9
