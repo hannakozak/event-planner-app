@@ -4,10 +4,8 @@ import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
-// @ts-ignore
-import { userRoutes } from './user/user-routes.ts';
-// @ts-ignore
-import { eventRoutes } from './event/event-routes.ts';
+import { userRoutes } from './user/user-routes';
+import { eventRoutes } from './event/event-routes';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
