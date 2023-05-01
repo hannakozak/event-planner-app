@@ -4,8 +4,8 @@ import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
-import { userRoutes } from './user/user-routes';
-import { eventRoutes } from './event/event-routes';
+import { userRoutes } from '../api/user/user-routes';
+import { eventRoutes } from '../api/event/event-routes';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
