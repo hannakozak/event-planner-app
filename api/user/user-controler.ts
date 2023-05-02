@@ -38,7 +38,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     return next(err);
   }
 
-  res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+  res.cookie('nToken', token, {
+    maxAge: 900000,
+    httpOnly: true,
+    domain: 'event-frontend-0lj5.onrender.com',
+    sameSite: 'strict',
+  });
   res.status(200);
   res.json({ message: 'Log in' });
 };
