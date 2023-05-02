@@ -1,22 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "target": "es2022",
-    "lib": ["ES2022"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ES2022",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ES2020"],
+    "outDir": "./build",
+    "rootDir": ".",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  }
+  "include": ["."]
 }

@@ -4,8 +4,8 @@ import morgan from 'morgan';
 import * as fs from 'fs';
 import * as path from 'path';
 import cookieParser from 'cookie-parser';
-import { userRoutes } from './user/user-routes';
-import { eventRoutes } from './event/event-routes';
+import userRoutes from './user/user-routes.js';
+import eventRoutes from './event/event-routes';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
@@ -69,11 +69,3 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at ${PORT}}`);
 });
-if (process.env.NODE_ENV === 'production') {
-  //*Set static folder up in production
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')),
-  );
-}

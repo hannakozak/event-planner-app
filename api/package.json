@@ -6,10 +6,10 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "api.ts",
+  "main": "./build/api.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node ./dist/api.js",
+    "build": " tsc --project .",
+    "start": "npm install && node --experimental-specifier-resolution=node ./build/api.js",
     "dev": "nodemon --exec npx ts-node ./api.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
