@@ -25,7 +25,7 @@ connectDatabase();
 const port = process.env.PORT;
 const app: Express = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://event-frontend-0lj5.onrender.com/',
 };
 
 app.use(cors(corsOptions));
